@@ -2,6 +2,11 @@
 #HW 8
 #C&D
 
+# Prof G - I get the following error testing explore2
+# Error in model.frame.default(formula = a ~ 1 + b, drop.unused.levels = TRUE) : 
+#   invalid type (list) for variable 'a'
+
+
 #For your information, the HW 8 part starts from line 400
 
 #1.
@@ -19,6 +24,7 @@ freq_table <- function(data){
   #return the frequency table
 }
 
+##Prof G - Should not include the next line in this script.
 data(diamonds)
 #call the dataframe diamonds for future use
 
