@@ -41,38 +41,39 @@ summary_stat <- function(data){
 
 #(b)
 
-num_rsquare <- function(num) {
+num_rsquare <- function(data) {
   #define a function that accepts the numeric variables 
   #as the parameter
+  num <- Filter(is.numeric,data)
+  #filter the numeric variables
   if (ncol(num) <= 1){
     OP ='We cannot compute pairwise R spuare value because the numeric variables are not enough for computing'
   }else{
-    colna <- colnames(num)
-    #take out the column names
-    com_num <- combn(colna, 2) 
-    #combine the names pairwise
-    VP <- c()
-    R2 <- c()
-    for(i in 1:ncol(com_num)){
-      temp1 <- paste(com_num[1,i],com_num[2,i],sep = '-')
-      VP <- c(VP,temp1)                                   
-      #write the pairwise names and add them in vector
-      a<- num[,com_num[1,i]]
-      b<- num[,com_num[2,i]]
-      model <- lm(a~1+b)
-      #use linear regression model to calculate the r-squared value
-      temp2 <- summary(model)["r.squared"]                
-      #take out corresponding r-square
-      R2 <- c(R2,as.numeric(temp2))
+    num_name = colnames(num)
+    #get the names of each numerical variables
+    numVar = length(num_name)
+    #get the total number of numerical variables
+    for (i in 1:(numVar-1)){
+      for (j in (i+1):numVar) {
+        #apply double for loop here to pair any two numerical variables
+        pairname = c(pairname, paste(num_name[i], num_name[j], sep = "-"))  #paste any two numerical variables, and separate the names
+        #of these two variables by "-"
+        rSquare = c(rSquare, paste(summary(lm(num[[j]]~num[[i]], num))$r.squared))
+        #calculate the r-Square values of each pair 
+        
+      }
     }
-    OP <- data.frame(VP,R2)                       
-    #create a dataframe and change its name
-    colnames(OP) <- c("Variable Pairs","R-square")
+    table = data.frame(pairname, rSquare)
+    #make a table that has the names of each pair and its associate 
+    #r-Square values
+    colnames(table) = c("Variable Pairs", "R-Square")
+    #name the columns of this table
+    return(table)
+    #return the table
   }
-  return(OP)
-  #return the table
+  
+  
 }
-
     
     
     
@@ -371,7 +372,7 @@ explore <- function(data,switch = "on",threshold = 0,vector = NULL){
             #calls function summary_stat(data), which returns a
             #summary statistics table for each numerical variable
   
-            num_rsquare(num), 
+            num_rsquare(data), 
             #calls function num_rsquare(num) that returns a dataframe
             #that contains pairwise names of variables and their 
             #r-square values
@@ -390,7 +391,7 @@ explore <- function(data,switch = "on",threshold = 0,vector = NULL){
 
 
 #check
-explore(diamonds, "on", 0.9, 30)
+#explore(diamonds, "on", 0.9, 30)
 
 
 
