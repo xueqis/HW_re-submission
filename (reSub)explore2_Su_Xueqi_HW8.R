@@ -48,6 +48,10 @@ summary_stat <- function(data){
 #summary_stat(diamonds)
 
 #(b)
+rSquare = c()
+pairname = c()
+num_name = c()
+table = c()
 
 num_rsquare <- function(data) {
   #define a function that accepts the numeric variables 
@@ -98,7 +102,7 @@ num_coe <- function(num, threshold = 0) {
     #take out all the variables' names
     com_num <- combn(colna, 2) 
     #combine the names pairwise
-    VP2 <- c()
+    VP2 <- c() 
     Cor <- c()
     #create two vectors for future use
     for(i in 1:ncol(com_num)){
