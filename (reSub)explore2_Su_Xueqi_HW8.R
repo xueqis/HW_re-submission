@@ -83,8 +83,7 @@ num_rsquare <- function(data) {
     return(table)
     #return the table
   }
-  #check
-  #num_rsquare(diamonds)
+  
 
 }
 

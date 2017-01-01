@@ -40,6 +40,10 @@ summary_stat <- function(data){
 #summary_stat(diamonds)
 
 #(b)
+rSquare = c()
+pairname = c()
+num_name = c()
+table = c()
 
 num_rsquare <- function(data) {
   #define a function that accepts the numeric variables 
